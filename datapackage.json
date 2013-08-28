@@ -1,0 +1,47 @@
+{
+	"name": "morosos",
+	"datapackage_version": "1.0-beta.5",
+	"title": "Morosos de Costa Rica",
+	"description": "Scrape of tax defaulter data published the government of Costa Rica.",
+	"version": "0.0.1",
+	"keywords": [
+		"morosos",
+		"costa rica",
+		"tax",
+		"defaulters"
+	],
+	"licenses": [
+		{
+			"id": "odc-by",
+			"url": "http://opendatacommons.org/licenses/by/1.0/",
+			"name": "Open Data Commons Attribution License",
+			"version": "1.0"
+		}
+	],
+	"sources": [
+		{
+			"name": "Ministerio de Hacienda, Costa Rica",
+			"web": "http://dgt.hacienda.go.cr/"
+		}
+	],
+	"contributors":[
+		{
+			"name": "Matthew Caruana Galizia",
+			"email": "m@m.cg",
+			"web": "http://m.cg/"
+		}
+	],
+	"maintainers": [
+		{
+			"name": "Matthew Caruana Galizia",
+			"email": "m@m.cg",
+			"web": "http://m.cg/"
+		}
+	],
+	"resources": [
+		{
+			"path": "data/json/tablas.json",
+			"format": "json"
+		}
+	]
+}
