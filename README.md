@@ -2,7 +2,7 @@
 
 Scraper for tax defaulter data published by the government of Costa Rica.
 
-The included JSON database contains just under 1000 records, covering the period from January 2011 onwards, with a gap between August and October 2011 where data is unavailable.
+The included JSON database contains over 10000 records, covering the period from January 2011 onwards, with a gap between August and October 2011 where data is unavailable.
 
 ## Credits ##
 
