@@ -1,5 +1,7 @@
 # Morosos de Costa Rica #
 
+[![Open Data](http://assets.okfn.org/images/ok_buttons/od_80x15_blue.png)](http://opendefinition.org/)
+
 Scraper for tax defaulter data published by the government of Costa Rica.
 
 The included JSON database contains over 10000 records, covering the period from January 2011 onwards, with a gap between August and October 2011 where data is unavailable.
