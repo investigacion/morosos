@@ -1,55 +1,28 @@
-pdfs = $(shell IFS=$$'\n'; \
-	for file in `cat data/pdfs.txt`; \
-		do echo "build/dgt.hacienda.go.cr$$file" | sed 's/ /\\ /g'; \
-	done)
+DATS := $(shell csvfix printf -ifn -fmt "%s" data/pdfs.csv)
+PDFS := $(DATS:%=data/pdf/%.pdf)
+TXTS := $(DATS:%=data/txt/%.txt)
 
-txts = $(shell IFS=$$'\n'; \
-	for file in `cat data/pdfs.txt`; \
-		do echo "build/dgt.hacienda.go.cr$${file%%.pdf}.txt" | sed 's/ /\\ /g'; \
-	done)
+data/tsv/cedulas.tsv: scripts/cedulas.js $(TXTS)
+	node scripts/cedulas.js $@ $(TXTS)
 
-openbracket_replace := \(
-openbracket := (
-closebracket_replace := \)
-closebracket := )
-
-data/json/tablas.json: $(txts)
-	node \
-		scripts/tablas.js \
-		$(subst $(closebracket),$(closebracket_replace),$(subst $(openbracket),$(openbracket_replace),$(txts)))
-
-$(pdfs): data/pdfs.txt build/dgt.hacienda.go.cr
-	path="$@"; \
-	path="$${path// /%20}"; \
-	path="$${path//ó/%C3%B3}"; \
+$(PDFS):
 	curl \
-		--create-dirs \
 		--progress-bar \
-		--tr-encoding \
+		--compressed \
 		--output "$@" \
-		"http://$${path#build/}"
+		http://dgt.hacienda.go.cr$(shell csvfix find -e "$(basename $(@F))" data/pdfs.csv | csvfix printf -fmt "%@%s")
 
-$(txts): $(pdfs)
-	path="$@"; \
-	pdftotext \
-		-enc UTF-8 \
-		-layout "$${path%%.txt}.pdf" "$@"
+$(TXTS): $(PDFS)
+	pdf2txt.py \
+		-o "$@" \
+		-t text \
+		-c utf-8 \
+		-M 0.4 \
+		-L 0.2 \
+		"data/pdf/$(@F:.txt=.pdf)"
 
-build:
-	if [ ! -d $@ ]; then \
-		mkdir $@; \
-	else \
-		touch $@; \
-	fi
+pdfs: $(PDFS)
 
-build/dgt.hacienda.go.cr: build
-	if [ ! -d $@ ]; then \
-		mkdir $@; \
-	else \
-		touch $@; \
-	fi
+txts: $(TXTS)
 
-clean:
-	rm -rf build
-
-.PHONY: clean
+.PHONY: pdfs txts
