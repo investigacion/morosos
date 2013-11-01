@@ -2,8 +2,8 @@ DATS := $(shell csvfix printf -ifn -fmt "%s" data/pdfs.csv)
 PDFS := $(DATS:%=data/pdf/%.pdf)
 TXTS := $(DATS:%=data/txt/%.txt)
 
-data/tsv/cedulas.tsv: scripts/cedulas.js $(TXTS)
-	node scripts/cedulas.js $@ $(TXTS)
+data/tsv/cedulas.tsv: scripts/cedulas.js $(TXTS) node_modules/dsv
+	node $< $@ $(TXTS)
 
 data/pdf/%.pdf:
 	curl \
@@ -20,5 +20,8 @@ data/txt/%.txt: data/pdf/%.pdf
 		-M 0.4 \
 		-L 0.2 \
 		"data/pdf/$(@F:.txt=.pdf)"
+
+node_modules/dsv:
+	npm install dsv
 
 .PHONY: pdfs txts
