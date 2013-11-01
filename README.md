@@ -4,7 +4,7 @@
 
 Scraper for tax defaulter data published by the government of Costa Rica.
 
-The included TSV database contains over 10000 records, covering the period from January 2011 onwards, with a gap between August and October 2011 where data is unavailable.
+The included TSV database in `data/tsv/cedulas.tsv` contains over 10000 records, covering the period from January 2011 onwards, with a gap between August and October 2011 where data is unavailable.
 
 ## Credits ##
 

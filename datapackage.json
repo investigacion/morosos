@@ -40,8 +40,8 @@
 	],
 	"resources": [
 		{
-			"path": "data/json/tablas.json",
-			"format": "json"
+			"path": "data/tsv/cedulas.tsv",
+			"format": "tsv"
 		}
 	]
 }
