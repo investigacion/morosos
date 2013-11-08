@@ -2,6 +2,9 @@ DATS := $(shell csvfix printf -ifn -fmt "%s" data/pdfs.csv)
 PDFS := $(DATS:%=data/pdf/%.pdf)
 TXTS := $(DATS:%=data/txt/%.txt)
 
+data/json/cedulas.json: scripts/cedulas-json.js data/tsv/cedulas.tsv
+	node $< $@ data/tsv/cedulas.tsv
+
 data/tsv/cedulas.tsv: scripts/cedulas.js $(TXTS) node_modules/dsv
 	node $< $@ $(TXTS)
 
@@ -24,4 +27,7 @@ data/txt/%.txt: data/pdf/%.pdf
 node_modules/dsv:
 	npm install dsv
 
-.PHONY: pdfs txts
+test:
+	jshint scripts/*.js data/json/*.json
+
+.PHONY: pdfs txts test
